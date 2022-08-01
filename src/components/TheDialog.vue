@@ -13,7 +13,7 @@
         <input type="text" placeholder="Введите описание">
       </div>
       <button class="dialog__button">
-        <p>Создать</p>
+        <span>Создать</span>
       </button>
     </dialog>
   </teleport>
@@ -26,8 +26,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://allfont.ru/allfont.css?fonts=agavantgardecyr-book");
-
 dialog {
   display: flex;
   flex-direction: column;
@@ -70,7 +68,7 @@ dialog {
 }
 
 .dialog__main p {
-  font-family: 'AGAvantGardeCyr Book', sans-serif;
+  font-family: 'AGAvantGardeCyr Book', arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -100,7 +98,7 @@ dialog {
   margin: 30px;
 }
 
-.dialog__button p {
+.dialog__button span {
   width: 73px;
   height: 24px;
   font-family: 'Vela Sans', sans-serif;
@@ -112,6 +110,6 @@ dialog {
   flex: none;
   order: 0;
   flex-grow: 0;
-  margin: 0 ;
+  margin: 0;
 }
 </style>
