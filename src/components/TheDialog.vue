@@ -41,6 +41,8 @@ export default {
 
 <style scoped>
 dialog {
+  position: fixed;
+  top: 20vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -51,7 +53,6 @@ dialog {
   border-radius: 6px;
   box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
   color: #16191D;
-  padding: 0;
 }
 
 .dialog__header {
