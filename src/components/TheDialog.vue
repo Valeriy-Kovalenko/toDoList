@@ -1,18 +1,18 @@
 <template>
   <teleport to="body">
-<!--    <div v-if="show" @click="tryClose" class="backdrop"></div>-->
+    <div @click="closeModal" class="backdrop"></div>
     <dialog open class="dialog">
       <header class="dialog__header">
         <h3>Создать новую задачу</h3>
         <button>
-          <img src="src/assets/close.svg" alt="Закрыть"/>
+          <img src="src/assets/close.svg" alt="Закрыть" @click="closeModal"/>
         </button>
       </header>
       <div class="dialog__main">
         <p>Описание</p>
-        <input type="text" placeholder="Введите описание">
+        <input type="text" placeholder="Введите описание" v-model="description">
       </div>
-      <button class="dialog__button">
+      <button class="dialog__button" @click="createTask">
         <span>Создать</span>
       </button>
     </dialog>
@@ -21,7 +21,21 @@
 
 <script>
 export default {
-
+  data() {
+    return {
+      description: '',
+    }
+  },
+  methods: {
+    closeModal() {
+      console.log(this.description);
+      this.$emit('close');
+    },
+    createTask() {
+      console.log('Placeholder');
+      this.closeModal();
+    },
+  },
 }
 </script>
 
@@ -111,5 +125,14 @@ dialog {
   order: 0;
   flex-grow: 0;
   margin: 0;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <the-dialog v-if="showModal" @close="closeModal"></the-dialog>
     <header class="main__header">
       <h2>To Do List</h2>
       <button @click="openModal">
@@ -8,17 +9,26 @@
     </header>
     <div class="main"></div>
   </div>
-  <the-dialog></the-dialog>
 </template>
 
 <script>
 import TheDialog from "./TheDialog.vue";
 export default {
-  components: {TheDialog},
+  components: {
+    TheDialog,
+  },
+  data() {
+    return {
+      showModal: false,
+      };
+    },
   methods: {
     openModal() {
-      alert('Test!');
+      this.showModal = true;
     },
+    closeModal() {
+      this.showModal = false;
+    }
   }
 };
 </script>
@@ -33,6 +43,4 @@ export default {
   width: 40px;
   height: 40px;
 }
-
-
 </style>
