@@ -20,7 +20,14 @@
         </select>
       </div>
     </div>
-    <div class="list"></div>
+    <div class="table">
+      <header class="table__header">header</header>
+      <ul class="table__list">
+        <li v-for="task in tasks">
+          <input type="checkbox"> <span>{{ task.description }}</span> <span>{{ task.status }}</span> <span>{{ task.date }}</span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -33,6 +40,10 @@ export default {
   data() {
     return {
       showModal: false,
+      tasks: [
+        { description: 'first desc', status: 'done', date: new Date() },
+        { description: 'second desc', status: 'in process', date: new Date() },
+      ],
       };
     },
   methods: {
@@ -102,5 +113,9 @@ export default {
 .filter__sort select {
   border: none;
   background-color: white;
+}
+
+.table {
+  width: 100%;
 }
 </style>
