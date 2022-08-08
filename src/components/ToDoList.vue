@@ -20,28 +20,17 @@
         </select>
       </div>
     </div>
-    <div class="table">
-      <header class="table__header">
-        <div class="table__header__description">Описание</div>
-        <div class="table__header__status">Статус</div>
-        <div class="table__header__date">Дата</div>
-      </header>
-      <ul class="table__list">
-        <li v-for="task in tasks">
-          <input type="checkbox">
-          <div>{{ task.description }}</div>
-          <div>{{ task.status }}</div>
-          <div>{{ task.date }}</div>
-        </li>
-      </ul>
-    </div>
+    <TasksList></TasksList>
   </div>
 </template>
 
 <script>
 import TheDialog from "./TheDialog.vue";
+import TasksList from "./TasksList.vue";
+
 export default {
   components: {
+    TasksList,
     TheDialog,
   },
   data() {
@@ -122,57 +111,4 @@ export default {
   border: none;
   background-color: white;
 }
-
-.table {
-  width: 100%;
-  /*80px 937px 151px 129px / 1300px*/
-}
-
-.table__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-  height: 35px;
-}
-
-.table__header div {
-  padding: 0 20px;
-  font-family: 'Vela Sans', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 200%;
-}
-
-.table__header__description {
-  border-left: solid 1px #C4C4C4;
-  border-right: solid 1px #C4C4C4;
-  width: 75%;
-  margin-left: 60px;
-}
-
-.table__header__status {
-  width: 15%;
-  border-right: solid 1px #C4C4C4;
-}
-.table__header__date {
-  width: 15%;
-}
-
-.table__list {
-  padding: 0;
-  width: 100%;
-}
-
-.table__list li {
-  list-style-type: none;
-  display: flex;
-  justify-content: space-between;
-}
-.table__list input {
-  width: 60px;
-}
-
-.table__list {}
 </style>

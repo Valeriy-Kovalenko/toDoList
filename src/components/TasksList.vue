@@ -1,0 +1,95 @@
+<template>
+  <div class="table">
+    <header class="table__header">
+      <div class="table__item header__description">Описание</div>
+      <div class="table__item header__status">Статус</div>
+      <div class="table__item header__date">Дата</div>
+    </header>
+    <ul class="table__list">
+      <li v-for="task in tasks">
+        <input type="checkbox">
+        <div class="table__item list__description"> {{ task.description }}</div>
+        <div class="table__item list__status">{{ task.status }}</div>
+        <div class="table__item list__date">{{ task.date }}</div>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      tasks: [
+        { description: 'first desc', status: 'done', date: new Date().getDate() },
+        { description: 'second desc', status: 'in process', date: new Date().getDate() },
+      ],
+    };
+  },
+}
+// const today = new Date();
+// const yyyy = today.getFullYear();
+// let mm = today.getMonth() + 1; // Months start at 0!
+// let dd = today.getDate();
+//
+// if (dd < 10) dd = '0' + dd;
+// if (mm < 10) mm = '0' + mm;
+//
+// const formattedToday = dd + '/' + mm + '/' + yyyy;
+</script>
+
+<style scoped>
+.table {
+  width: 100%;
+  /*80px 937px 151px 129px / 1300px*/
+}
+
+.table__header {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  height: 35px;
+}
+
+.table__item {
+  padding: 0 20px;
+}
+
+.table__header .table__item {
+  font-family: 'Vela Sans', sans-serif;
+  font-size: 14px;
+  line-height: 200%;
+}
+
+.header__description {
+  border-left: solid 1px #C4C4C4;
+  border-right: solid 1px #C4C4C4;
+  width: 70%;
+  margin-left: 60px;
+}
+
+.header__status {
+  width: 20%;
+  border-right: solid 1px #C4C4C4;
+}
+.header__date, .list__date {
+  width: 15%;
+}
+
+.table__list {
+  padding: 0;
+}
+.table__list li {
+  display: flex;
+}
+.table__list input {
+  width: 60px;
+}
+.list__description {
+  width: 70%;
+}
+
+.list__status {
+  width: 20%;
+}
+</style>
