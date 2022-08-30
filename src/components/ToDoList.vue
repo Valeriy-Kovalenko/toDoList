@@ -10,7 +10,7 @@
     <div class="filter">
       <div class="filter__search">
         <img src="src/assets/search.svg" alt="Поиск"/>
-        <input type="search" placeholder="Поиск задачи">
+        <input type="search" placeholder="Поиск задачи*">
       </div>
       <div class="filter__sort">
         <span>Сортировать по:</span>
