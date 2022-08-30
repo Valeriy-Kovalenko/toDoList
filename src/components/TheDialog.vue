@@ -28,7 +28,6 @@ export default {
   },
   methods: {
     closeModal() {
-      console.log(this.description);
       this.$emit('close');
     },
     createTask() {

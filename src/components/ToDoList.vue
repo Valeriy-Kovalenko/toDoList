@@ -10,13 +10,13 @@
     <div class="filter">
       <div class="filter__search">
         <img src="src/assets/search.svg" alt="Поиск"/>
-        <input type="search" placeholder="Поиск ID, Имени, статуса или даты">
+        <input type="search" placeholder="Поиск задачи">
       </div>
       <div class="filter__sort">
         <span>Сортировать по:</span>
         <select>
-          <option>Дата</option>
-          <option>Статус</option>
+          <option @click="sortBy('date')" :selected="getSelectedOption === 'date'">Дата</option>
+          <option @click="sortBy('status')" :selected="getSelectedOption === 'status'">Статус</option>
         </select>
       </div>
     </div>
@@ -40,8 +40,34 @@ export default {
     },
   created() {
     this.$store.dispatch("loadAllTasks");
+    this.$store.dispatch("loadSelectedOption");
+  },
+  computed: {
+    getSelectedOption() {
+      return this.$store.getters["getOption"];
+    }
   },
   methods: {
+    sortBy(value) {
+
+      const tasks = this.$store.getters['getTasks'];
+
+      const newTasks = tasks.sort((a, b) => {
+        if (value === "status") return a.status < b.status;
+        const [firstValue, secondValue] = [a, b].map(el => {
+          return el.date.split(".").reduce((sum, current, index) => {
+            if (index === 1) return sum + (Number(current) * 30);
+            if (index === 2) return sum + (Number(current) * 365);
+            return sum + Number(current);
+          }, 0);
+        });
+        return firstValue - secondValue;
+      });
+
+      this.$store.dispatch("sortAllTasks", newTasks);
+      this.$store.dispatch("changeSelectedOption", value);
+
+    },
     openModal() {
       this.showModal = true;
     },

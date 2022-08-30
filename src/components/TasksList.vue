@@ -35,7 +35,7 @@ export default {
         status: currentStatus,
         id: task.id,
       };
-      console.log(data);
+
       this.$store.dispatch("changeTaskStatus", data);
     }
   }

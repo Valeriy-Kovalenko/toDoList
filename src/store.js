@@ -4,12 +4,16 @@ const store = createStore({
     state() {
         return {
             tasks: [],
+            selectedOption: "",
         }
     },
     getters: {
         getTasks(state) {
             return state.tasks;
         },
+        getOption(state) {
+            return state.selectedOption;
+        }
     },
     mutations: {
         addTask(state, payload) {
@@ -18,6 +22,9 @@ const store = createStore({
         loadTasks(state, payload) {
             state.tasks = payload;
         },
+        loadSelectedOption(state, payload) {
+            state.selectedOption = payload;
+        }
     },
     actions: {
         async loadAllTasks(context) {
@@ -49,6 +56,26 @@ const store = createStore({
                 body: JSON.stringify(data.status),
             });
         },
+        async sortAllTasks(context, data) {
+            await fetch(`https://todolist-5199e-default-rtdb.europe-west1.firebasedatabase.app/tasks.json`, {
+                method: "PUT",
+                body: JSON.stringify(data),
+            });
+        },
+        async changeSelectedOption(context, data) {
+            await fetch(`https://todolist-5199e-default-rtdb.europe-west1.firebasedatabase.app/selected.json`, {
+                method: "PUT",
+                body: JSON.stringify(data),
+            });
+
+            context.commit("loadSelectedOption", data);
+        },
+        async loadSelectedOption(context, data) {
+            const response = await fetch(`https://todolist-5199e-default-rtdb.europe-west1.firebasedatabase.app/selected.json`);
+            const responseData = await response.json();
+
+            context.commit("loadSelectedOption", responseData);
+        }
     }
 });
 
