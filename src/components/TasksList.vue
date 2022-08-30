@@ -6,8 +6,8 @@
       <div class="table__item header__date">Дата</div>
     </header>
     <ul class="table__list">
-      <li v-for="task in tasks">
-        <input type="checkbox">
+      <li v-for="task in getTasks">
+        <input type="checkbox" :checked="task.status === 'Выполнено'" @click="changeStatus($event, task)">
         <div class="table__item list__description"> {{ task.description }}</div>
         <div class="table__item list__status">{{ task.status }}</div>
         <div class="table__item list__date">{{ task.date }}</div>
@@ -20,22 +20,26 @@
 export default {
   data() {
     return {
-      tasks: [
-        { description: 'first desc', status: 'done', date: new Date().getDate() },
-        { description: 'second desc', status: 'in process', date: new Date().getDate() },
-      ],
+      empty: null,
     };
   },
+  computed: {
+    getTasks() {
+      return this.$store.getters['getTasks'];
+    },
+  },
+  methods: {
+    changeStatus(event, task) {
+      const currentStatus = event.target.checked ? task.status = "Выполнено" : task.status = "В работе";
+      const data = {
+        status: currentStatus,
+        id: task.id,
+      };
+      console.log(data);
+      this.$store.dispatch("changeTaskStatus", data);
+    }
+  }
 }
-// const today = new Date();
-// const yyyy = today.getFullYear();
-// let mm = today.getMonth() + 1; // Months start at 0!
-// let dd = today.getDate();
-//
-// if (dd < 10) dd = '0' + dd;
-// if (mm < 10) mm = '0' + mm;
-//
-// const formattedToday = dd + '/' + mm + '/' + yyyy;
 </script>
 
 <style scoped>

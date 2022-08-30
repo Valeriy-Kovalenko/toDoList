@@ -36,12 +36,11 @@ export default {
   data() {
     return {
       showModal: false,
-      tasks: [
-        { description: 'first desc', status: 'done', date: new Date().getDate() },
-        { description: 'second desc', status: 'in process', date: new Date().getDate() },
-      ],
       };
     },
+  created() {
+    this.$store.dispatch("loadAllTasks");
+  },
   methods: {
     openModal() {
       this.showModal = true;

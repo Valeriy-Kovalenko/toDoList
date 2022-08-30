@@ -32,9 +32,26 @@ export default {
       this.$emit('close');
     },
     createTask() {
-      console.log('Placeholder');
+      const data = {
+        description: this.description,
+        status: "В работе",
+        date: this.calcNormalDate(),
+      }
+
+      this.$store.dispatch("createNewTask", data);
       this.closeModal();
     },
+    calcNormalDate() {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      let mm = today.getMonth() + 1; // Months start at 0!
+      let dd = today.getDate();
+
+      if (dd < 10) dd = '0' + dd;
+      if (mm < 10) mm = '0' + mm;
+
+      return dd + '.' + mm + '.' + yyyy;
+    }
   },
 }
 </script>
