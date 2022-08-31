@@ -9,7 +9,7 @@
     </header>
     <div class="filter">
       <div class="filter__search">
-        <img src="src/assets/search.svg" alt="Поиск"/>
+        <img src="src/assets/search.png" alt="Поиск"/>
         <input type="search" placeholder="Поиск задачи" v-model="currentInput" @input="findTask">
       </div>
       <div class="filter__sort">
@@ -20,7 +20,7 @@
         </select>
       </div>
     </div>
-    <TasksList></TasksList>
+    <TasksList :tasks="tasks ? tasks : getAllTasks"></TasksList>
   </div>
 </template>
 
@@ -37,7 +37,7 @@ export default {
     return {
       showModal: false,
       currentInput: "",
-
+      tasks: null,
       };
     },
   created() {
@@ -45,6 +45,9 @@ export default {
     this.$store.dispatch("loadSelectedOption");
   },
   computed: {
+    getAllTasks() {
+      return this.$store.getters['getTasks'];
+    },
     getSelectedOption() {
       return this.$store.getters["getOption"];
     }
@@ -73,8 +76,7 @@ export default {
       const tasks = this.$store.getters["getTasks"];
 
       const filteredTasks = tasks.filter(el => el.description.includes(this.currentInput));
-      // как-то нужно при нажатии клавиши получать с сервера и стора данные, их сравнивать
-      // и только потом отображать на экране (изменяя только локально в компоненте)
+      this.tasks = filteredTasks;
     },
     openModal() {
       this.showModal = true;
@@ -122,6 +124,7 @@ export default {
   align-items: center;
   height: 20px;
   margin: 10px 0;
+  font-family: 'Vela Sans', sans-serif;
 }
 .filter__search {
   display: flex;

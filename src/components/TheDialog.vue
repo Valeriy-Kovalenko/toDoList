@@ -30,14 +30,19 @@ export default {
     closeModal() {
       this.$emit('close');
     },
-    createTask() {
+    async createTask() {
+      if (!this.description) {
+        this.closeModal();
+        return
+      };
       const data = {
         description: this.description,
         status: "В работе",
         date: this.calcNormalDate(),
       }
+      await this.$store.dispatch("createNewTask", data);
+      await this.$store.dispatch("loadAllTasks");
 
-      this.$store.dispatch("createNewTask", data);
       this.closeModal();
     },
     calcNormalDate() {
@@ -127,6 +132,7 @@ dialog {
   border: none;
   border-radius: 8px;
   margin: 30px;
+  font-family: 'Vela Sans', sans-serif;
 }
 
 .dialog__button span {
