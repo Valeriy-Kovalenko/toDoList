@@ -1,11 +1,11 @@
 <template>
   <div class="table">
-    <header class="table__header">
+    <header class="table__header header">
       <div class="table__item header__description">Описание</div>
       <div class="table__item header__status">Статус</div>
       <div class="table__item header__date">Дата</div>
     </header>
-    <ul class="table__list">
+    <ul class="table__list list">
       <li v-for="task in getTasks">
         <input type="checkbox" :checked="task.status === 'Выполнено'" @click="changeStatus($event, task)">
         <div class="table__item list__description"> {{ task.description }}</div>
@@ -18,11 +18,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      empty: null,
-    };
-  },
   computed: {
     getTasks() {
       return this.$store.getters['getTasks'];
@@ -30,7 +25,7 @@ export default {
   },
   methods: {
     changeStatus(event, task) {
-      const currentStatus = event.target.checked ? task.status = "Выполнено" : task.status = "В работе";
+      const currentStatus = event.target.checked ? task.status = "Выполнено" : task.status = "В работе"; // ПЕРЕПИСАТЬ В КОМПУТЕД?
       const data = {
         status: currentStatus,
         id: task.id,

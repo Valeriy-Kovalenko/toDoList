@@ -10,7 +10,7 @@
     <div class="filter">
       <div class="filter__search">
         <img src="src/assets/search.svg" alt="Поиск"/>
-        <input type="search" placeholder="Поиск задачи*">
+        <input type="search" placeholder="Поиск задачи" v-model="currentInput" @input="findTask">
       </div>
       <div class="filter__sort">
         <span>Сортировать по:</span>
@@ -36,6 +36,8 @@ export default {
   data() {
     return {
       showModal: false,
+      currentInput: "",
+
       };
     },
   created() {
@@ -49,7 +51,6 @@ export default {
   },
   methods: {
     sortBy(value) {
-
       const tasks = this.$store.getters['getTasks'];
 
       const newTasks = tasks.sort((a, b) => {
@@ -67,6 +68,13 @@ export default {
       this.$store.dispatch("sortAllTasks", newTasks);
       this.$store.dispatch("changeSelectedOption", value);
 
+    },
+    findTask() {
+      const tasks = this.$store.getters["getTasks"];
+
+      const filteredTasks = tasks.filter(el => el.description.includes(this.currentInput));
+      // как-то нужно при нажатии клавиши получать с сервера и стора данные, их сравнивать
+      // и только потом отображать на экране (изменяя только локально в компоненте)
     },
     openModal() {
       this.showModal = true;
