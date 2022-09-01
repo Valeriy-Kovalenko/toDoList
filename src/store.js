@@ -70,7 +70,7 @@ const store = createStore({
 
             context.commit("loadSelectedOption", data);
         },
-        async loadSelectedOption(context, data) {
+        async loadSelectedOption(context) {
             const response = await fetch(`https://todolist-5199e-default-rtdb.europe-west1.firebasedatabase.app/selected.json`);
             const responseData = await response.json();
 

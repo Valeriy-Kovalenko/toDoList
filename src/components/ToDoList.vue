@@ -14,9 +14,9 @@
       </div>
       <div class="filter__sort">
         <span>Сортировать по:</span>
-        <select>
-          <option @click="sortBy('date')" :selected="getSelectedOption === 'date'">Дата</option>
-          <option @click="sortBy('status')" :selected="getSelectedOption === 'status'">Статус</option>
+        <select v-model="chosenSort" @change="sortBy(chosenSort)">
+          <option>Дата</option>
+          <option>Статус</option>
         </select>
       </div>
     </div>
@@ -38,26 +38,28 @@ export default {
       showModal: false,
       currentInput: "",
       tasks: null,
+      chosenSort: "",
       };
     },
-  created() {
-    this.$store.dispatch("loadAllTasks");
-    this.$store.dispatch("loadSelectedOption");
+  async created() {
+    await this.$store.dispatch("loadAllTasks");
+    await this.$store.dispatch("loadSelectedOption");
+    await this.getCurrentStatus();
   },
   computed: {
     getAllTasks() {
       return this.$store.getters['getTasks'];
     },
-    getSelectedOption() {
-      return this.$store.getters["getOption"];
-    }
   },
   methods: {
     sortBy(value) {
+      value === "Дата" ? value = "date" : value = "status";
       const tasks = this.$store.getters['getTasks'];
 
       const newTasks = tasks.sort((a, b) => {
-        if (value === "status") return a.status < b.status;
+        if (value === "status") {
+          return (a.status < b.status) ? 1 : -1;
+        }
         const [firstValue, secondValue] = [a, b].map(el => {
           return el.date.split(".").reduce((sum, current, index) => {
             if (index === 1) return sum + (Number(current) * 30);
@@ -75,8 +77,10 @@ export default {
     findTask() {
       const tasks = this.$store.getters["getTasks"];
 
-      const filteredTasks = tasks.filter(el => el.description.includes(this.currentInput));
-      this.tasks = filteredTasks;
+      this.tasks = tasks.filter(el => el.description.includes(this.currentInput));
+    },
+    getCurrentStatus() {
+      this.$store.getters["getOption"] === "date" ? this.chosenSort = "Дата" : this.chosenSort = "Статус";
     },
     openModal() {
       this.showModal = true;
@@ -101,6 +105,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  font-family: "Montserrat", sans-serif;
 }
 .header button, header img {
   width: 40px;
