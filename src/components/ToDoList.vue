@@ -4,12 +4,12 @@
     <header class="header">
       <h2>To do list</h2>
       <button @click="openModal">
-        <img src="src/assets/plus.png" alt="Добавить новую задачу" />
+        <img src="/src/assets/plus.png" alt="Добавить новую задачу" />
       </button>
     </header>
     <div class="filter">
       <div class="filter__search">
-        <img src="src/assets/search.png" alt="Поиск"/>
+        <img src="/src/assets/search.png" alt="Поиск"/>
         <input type="search" placeholder="Поиск задачи" v-model="currentInput" @input="findTask">
       </div>
       <div class="filter__sort">

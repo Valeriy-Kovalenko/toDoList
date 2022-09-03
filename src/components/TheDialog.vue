@@ -5,7 +5,7 @@
       <header class="dialog__header">
         <h3>Создать новую задачу</h3>
         <button>
-          <img src="src/assets/close.svg" alt="Закрыть" @click="closeModal"/>
+          <img src="/src/assets/close.svg" alt="Закрыть" @click="closeModal"/>
         </button>
       </header>
       <div class="dialog__main">
