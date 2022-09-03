@@ -116,10 +116,15 @@ export default {
 }
 .header button {
   background-color: #D6DBEB;
+  position: relative;
 }
 .header img {
   width: 50%;
   height: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .filter {
